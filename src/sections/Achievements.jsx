@@ -13,7 +13,7 @@ const Achievements = () => {
     },
     {
       title: '1,000+ DSA Problems Solved',
-      description: 'Solved over 1,000  Data Structures & Algorithms (DSA) questions across coding platforms.Maintained consistent streaks while tackling medium-hard problems on LeetCode, GFG, and Coding Ninjas.',
+      description: 'Solved over 1,000  Data Structures & Algorithms (DSA) questions across various coding platforms.Maintained consistent streaks while tackling medium-hard problems on LeetCode, GFG, and Coding Ninjas.',
       badge: 'Coding Metrics',
       icon: Code2,
       color: 'border-indigo-500/30 text-indigo-400 glow-indigo',

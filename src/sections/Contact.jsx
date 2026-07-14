@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
-import { Code2, FileText,FileUser } from "lucide-react";
+import { Code2, FileText, Mail, Phone, MapPin, CheckCircle, ExternalLink, Network, Award, Copy, Check } from 'lucide-react';
 import {
   SiGithub,
   SiLeetcode,
   SiCodechef,
-  SiCodeforces,
 } from "react-icons/si";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, CheckCircle, ExternalLink, Network, Award, MessageSquare } from 'lucide-react';
 
 const Contact = () => {
   const [formState, setFormState] = useState({ name: '', phone: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  /* STREAMING_CHUNK: Managing state logic for Clipboard Copied Feedback */
+  const [copied, setCopied] = useState(false);
+  const emailAddress = "anantapandey0902@gmail.com";
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +49,7 @@ const Contact = () => {
       ),
       color: 'bg-[#0077B5] shadow-[#0077B5]/20'
     },
-     {
+    {
       name: 'View Resume',
       url: '',
       icon: <FileText className="w-5 h-5 text-white" />,
@@ -49,7 +61,7 @@ const Contact = () => {
     {
       name: 'LeetCode',
       url: 'https://leetcode.com/u/Ananta_09/',
-      icon:  <SiLeetcode className="w-5 h-5 text-white" />,
+      icon: <SiLeetcode className="w-5 h-5 text-white" />,
       color: 'bg-[#FFA116] shadow-[#FFA116]/20'
     },
     {
@@ -71,7 +83,7 @@ const Contact = () => {
     {
       name: 'Codolio',
       url: 'https://codolio.com/profile/ananta0902',
-      icon: <Code2/>,
+      icon: <Code2 className="w-5 h-5" />,
       color: 'bg-[#8E24AA] shadow-[#8E24AA]/20'
     }
   ];
@@ -80,7 +92,7 @@ const Contact = () => {
     <section id="contact" className="py-20 border-b border-zinc-900 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         
-        {/* STREAMING_CHUNK: Rendering Section Header with Royal Blue Styling */}
+        {/* Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +104,7 @@ const Contact = () => {
           <div className="h-1 w-12 bg-blue-500 mx-auto mt-4 rounded-full" />
         </motion.div>
         
-        {/* STREAMING_CHUNK: Layout Grid containing the top quick contact cards */}
+        {/* Layout Grid containing contact cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
           {/* Contact Card */}
           <motion.div 
@@ -115,23 +127,47 @@ const Contact = () => {
               <MapPin className="w-5 h-5 text-blue-400" />
             </div>
             <span className="text-blue-400 font-bold tracking-wide text-xs sm:text-sm uppercase mb-1">Location</span>
-            <span className="text-zinc-300 font-semibold text-sm sm:text-base">Kolkata,West Bengal</span>
+            <span className="text-zinc-300 font-semibold text-sm sm:text-base">Kolkata, West Bengal</span>
           </motion.div>
 
-          {/* Email Card */}
+          {/* Email Card with copy feedback */}
+          {/* STREAMING_CHUNK: Integrating the responsive Copy Clipboard Email UI component */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="p-6 bg-zinc-900/20 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg group hover:border-blue-500/20 transition-all duration-300"
+            className="p-6 bg-zinc-900/20 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg group hover:border-blue-500/20 transition-all duration-300 relative overflow-hidden"
           >
             <div className="p-3 bg-blue-500/5 rounded-xl border border-blue-500/10 mb-3 group-hover:bg-blue-500/10 transition-colors">
               <Mail className="w-5 h-5 text-blue-400" />
             </div>
             <span className="text-blue-400 font-bold tracking-wide text-xs sm:text-sm uppercase mb-1">Email</span>
-            <span className="text-zinc-300 font-semibold text-xs sm:text-sm break-all">anantapandey0902@gmail.com</span>
+            <div className="flex flex-col items-center gap-2 w-full">
+              <span className="text-zinc-300 font-semibold text-xs sm:text-sm break-all">{emailAddress}</span>
+              
+              <button
+                onClick={handleCopyEmail}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all active:scale-95 cursor-pointer ${
+                  copied
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                    : 'bg-zinc-950/60 border-zinc-800 hover:border-blue-500/30 text-zinc-400 hover:text-white'
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 animate-bounce" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Copy Email</span>
+                  </>
+                )}
+              </button>
+            </div>
           </motion.div>
         </div>
 
-        {/* STREAMING_CHUNK: Double column form capture and social link console */}
+        {/* Double column form capture and social link console */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Left Block - Fill Your Query Form */}
@@ -141,7 +177,6 @@ const Contact = () => {
             viewport={{ once: true }}
             className="bg-zinc-900/20 border border-zinc-800 p-6 sm:p-8 rounded-3xl flex flex-col justify-between shadow-2xl relative overflow-hidden"
           >
-            {/* Soft blue glow accent */}
             <div className="absolute -top-12 -left-12 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
             
             <div className="mb-6 text-center">
@@ -158,7 +193,6 @@ const Contact = () => {
                   exit={{ opacity: 0 }}
                   className="space-y-4"
                 >
-                  {/* Name field */}
                   <div>
                     <input 
                       type="text" 
@@ -170,7 +204,6 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* Phone field */}
                   <div>
                     <input 
                       type="tel" 
@@ -182,7 +215,6 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* Email field */}
                   <div>
                     <input 
                       type="email" 
@@ -194,7 +226,6 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* Message field */}
                   <div>
                     <textarea 
                       rows="4"
@@ -206,7 +237,6 @@ const Contact = () => {
                     />
                   </div>
 
-                  {/* Submit button */}
                   <button 
                     type="submit"
                     disabled={loading}
@@ -231,8 +261,7 @@ const Contact = () => {
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 15 }}
                   >
-                    <CheckCircle className="w-16 h-16 text-blue-400 mb-4 color:
-#0f2d6eff" />
+                    <CheckCircle className="w-16 h-16 text-blue-400 mb-4" />
                   </motion.div>
                   <h4 className="text-lg font-bold text-white mb-2">Query Received!</h4>
                   <p className="text-zinc-400 text-xs sm:text-sm max-w-xs leading-relaxed">
@@ -249,14 +278,13 @@ const Contact = () => {
             </AnimatePresence>
           </motion.div>
 
-          {/* STREAMING_CHUNK: Category structured social link container */}
+          {/* Category structured social link container */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="bg-zinc-900/20 border border-zinc-800 p-6 sm:p-8 rounded-3xl flex flex-col justify-between shadow-2xl relative overflow-hidden"
           >
-            {/* Soft blue glow accent */}
             <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="mb-6 text-center">
@@ -279,20 +307,20 @@ const Contact = () => {
                       key={social.name}
                       className="p-3 bg-zinc-950/80 border border-zinc-850 rounded-2xl flex items-center justify-between group hover:border-blue-500/20 transition-all duration-300"
                     >
-                      <div className="flex items-center space-x-3.5">
-                        <div className={`p-2.5 rounded-xl ${social.color} shadow-lg transition-transform duration-300 group-hover:scale-110 flex items-center justify-center`}>
+                      <div className="flex items-center space-x-2 sm:space-x-3.5">
+                        <div className={`p-2 sm:p-2.5 rounded-xl ${social.color} shadow-lg transition-transform duration-300 group-hover:scale-110 flex items-center justify-center`}>
                           {social.icon}
                         </div>
-                        <span className="text-white font-extrabold text-sm sm:text-base tracking-wide">{social.name}</span>
+                        <span className="text-white font-extrabold text-xs sm:text-base tracking-wide">{social.name}</span>
                       </div>
                       <a 
                         href={social.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-4 py-1.5 bg-blue-500 hover:bg-blue-400 text-white text-xs font-black rounded-lg transition-all shadow-md active:scale-95 text-center flex items-center gap-1"
+                        className="px-2.5 py-1 sm:px-4 sm:py-1.5 bg-blue-500 hover:bg-blue-400 text-white text-[10px] sm:text-xs font-black rounded-lg transition-all shadow-md active:scale-95 text-center flex items-center gap-1 shrink-0"
                       >
-                        <span>View Profile</span>
-                        <ExternalLink className="w-3 h-3 opacity-85" />
+                        <span>View<span className="hidden sm:inline"> Profile</span></span>
+                        <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-85" />
                       </a>
                     </div>
                   ))}
@@ -311,24 +339,24 @@ const Contact = () => {
                       key={social.name}
                       className="p-3 bg-zinc-950/80 border border-zinc-850 rounded-2xl flex items-center justify-between group hover:border-blue-500/20 transition-all duration-300"
                     >
-                      <div className="flex items-center space-x-3.5">
-                        <div className={`p-2.5 rounded-xl ${social.color} shadow-lg transition-transform duration-300 group-hover:scale-110 flex items-center justify-center`}>
+                      <div className="flex items-center space-x-2 sm:space-x-3.5">
+                        <div className={`p-2 sm:p-2.5 rounded-xl ${social.color} shadow-lg transition-transform duration-300 group-hover:scale-110 flex items-center justify-center`}>
                           {social.icon}
                         </div>
-                        <span className="text-white font-extrabold text-sm sm:text-base tracking-wide">{social.name}</span>
+                        <span className="text-white font-extrabold text-xs sm:text-base tracking-wide">{social.name}</span>
                       </div>
                       {social.url ? (
                         <a 
                           href={social.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="px-4 py-1.5 bg-blue-500 hover:bg-blue-400 text-white text-xs font-black rounded-lg transition-all shadow-md active:scale-95 text-center flex items-center gap-1"
+                          className="px-2.5 py-1 sm:px-4 sm:py-1.5 bg-blue-500 hover:bg-blue-400 text-white text-[10px] sm:text-xs font-black rounded-lg transition-all shadow-md active:scale-95 text-center flex items-center gap-1 shrink-0"
                         >
-                          <span>View Profile</span>
-                          <ExternalLink className="w-3 h-3 opacity-85" />
+                          <span>View<span className="hidden sm:inline"> Profile</span></span>
+                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-85" />
                         </a>
                       ) : (
-                        <span className="px-4 py-1.5 bg-zinc-800 text-zinc-500 text-xs font-bold rounded-lg cursor-not-allowed">
+                        <span className="px-2.5 py-1 sm:px-4 sm:py-1.5 bg-zinc-800 text-zinc-500 text-[10px] sm:text-xs font-bold rounded-lg cursor-not-allowed shrink-0">
                           In Progress
                         </span>
                       )}

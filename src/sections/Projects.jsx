@@ -4,22 +4,22 @@ import { Folder, ExternalLink } from 'lucide-react';
 
 const Projects = () => {
   const projectsData = [
+      {
+  title: '🎥Meetify- Real-Time Video Conferencing Platform enhanced with AI',
+  desc: 'Engineered a real-time web conference application featuring HD video/audio streaming, screen sharing, and peer-to-peer WebRTC connections with active-speaker detection.Architected an AI-powered co-pilot providing live meeting assistant chat and automated video transcript summarization, coordinated via Node.js and Socket.IO signaling cluster.',
+  tags: ['WebRTC', 'Socket.IO','React.js','Groq API','Llama 3 / Mixtral','Node.js', 'Express.js', 'Material-UI'],
+  githubLink: 'https://github.com/Ananta0902/Meetify',
+  liveLink: 'https://meetify-web.netlify.app'
+},
     {
-      title: '🌍Wanderlust-Airbnb inspired Listing Platform',
+      title: '🌍Wanderlust— Next-Gen AI-Driven Property Listing Engine',
       desc: 'Built a full-stack rental model featuring secure authentication, property management, interactive maps, reviews, and cloud-based image storage. Integrated Google Gemini AI to deliver personalized travel guides, trip planning, and intelligent destination assistance, while implementing role-based authorization, geolocation services, and an MVC architecture.',
       tags: ['Node.js','Express.js','MongoDB','EJS','Passport.js','Cloudinary','Google Gemini API','Mapbox','Bootstrap'],
       githubLink: 'https://github.com/Ananta0902/wanderLust-',
       liveLink: 'https://wanderlust-4ahg.onrender.com/listings'
     },
     {
-      title: '🎥Meetify-Real-Time Video Conferencing Platform',
-      desc: 'Designed a real-time communication platform supporting HD video calls, screen sharing, live messaging, and multi-user meeting rooms using peer-to-peer WebRTC connections. Built a scalable signaling server with Socket.IO to coordinate secure session establishment.',
-      tags: ['Node.js','Express.js','React.js','WebRTC','Socket.IO'],
-      githubLink: 'https://github.com/Ananta0902/Meetify',
-      liveLink: ''
-    },
-    {
-      title: '📈TradeSphere-MERN Stock Trading Simulator',
+      title: '📈TradeSphere- MERN Stock Trading Simulator',
       desc: 'Built a modern trading platform with portfolio tracking, watchlists, simulated stock transactions, analytics dashboards, and responsive user interfaces. Developed RESTful backend services and optimized frontend state management for a smooth, interactive trading experience.',
       tags: ['React.js','Node.js','Express.js','MongoDB','Redux Toolkit','Material UI', 'Chart.js'],
       githubLink: 'https://github.com/Ananta0902/TradeSphere',
