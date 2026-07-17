@@ -59,7 +59,7 @@ const Navbar = () => {
         {/* Action Button - Direct PDF Resume Shortcut */}
         <div className="hidden md:block">
           <a
-            href="#contact"
+            href="https://drive.google.com/file/d/1lbH-yMJD-UpJNfrYJamrOE87dwacb-DL/view"
             className="px-4 py-2 text-xs font-extrabold text-blue-400 hover:text-white bg-blue-500/5 hover:bg-blue-500 border border-blue-500/20 hover:border-blue-500 rounded-full transition-all duration-300 flex items-center gap-1 shadow-lg shadow-blue-500/5"
           >
             <span>View Resume</span>
